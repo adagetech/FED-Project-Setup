@@ -1,0 +1,19 @@
+// ------------- HTML CLASSES - PAGE TRANSITIONS ------------- //
+
+html {
+    @include animation($name: fade-in, $timing: ease-in, $duration: .3s);
+}
+
+
+// ------------- MISC ------------- //
+
+
+// ------------- VISIBILITY - SHOW/HIDE ------------- //
+
+.svg-sprite {
+    display: none;
+}
+
+.ng-cloak {
+    visibility: hidden !important;
+}

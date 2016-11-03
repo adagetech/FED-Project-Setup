@@ -1,0 +1,29 @@
+// ------------- BUTTON PLACEHOLDER ------------- //
+
+%btn {
+    display: inline-block;
+
+    &:hover {
+        
+    }
+
+    &.disabled,
+    &[disabled=disabled] {
+        pointer-events: none;
+        cursor: default;
+    }
+
+    &:empty {
+        display: none;
+    }
+}
+
+
+// ------------- BUTTON SIZES ------------- //
+
+/* Meant to always be used in conjunction with a style */
+
+
+// ------------- BUTTON STYLES ------------- //
+
+

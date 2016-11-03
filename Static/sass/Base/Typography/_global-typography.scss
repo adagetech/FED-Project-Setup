@@ -1,0 +1,70 @@
+// ------------- GENERAL TAGS ------------- //
+
+body {
+    font-size: 100%;
+    font-family: $serif-font, serif;
+    font-weight: 400;
+    line-height: 1.5em;
+
+    ::selection {
+        
+    }
+
+    ::-moz-selection {
+        
+    }
+}
+
+a {
+    text-decoration: none;
+    line-height: 1.5em;
+    @include transition(.2s);
+}
+
+b, strong {
+    font-weight: 700;
+}
+
+em, i {
+    font-style: italic;
+}
+
+h1 {
+
+}
+
+h2 {
+
+}
+ 
+h3 {
+
+}
+
+h4 {
+
+}
+
+blockquote {
+
+}
+
+// ------------- MOBILE SIZING ------------- //
+
+@media (max-width:$small-media-query-size) {
+    h1 {
+
+    }
+
+    h2 {
+
+    }
+	
+	h3 {
+
+	}
+
+	h4 {
+
+	}
+}

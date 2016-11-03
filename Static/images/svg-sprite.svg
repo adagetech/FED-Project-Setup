@@ -1,0 +1,12 @@
+<svg class="svg-sprite">
+  <style type="text/css">
+    *{
+    pointer-events: fill;
+    }
+  </style>
+  <defs>
+    <symbol id="hamburger" viewBox="0 0 40 20">
+      <path d="M20,20H0v-3h20V20z M20,8.5H0v3h20V8.5z M20,0H0v3h20V0z"/>
+    </symbol>
+  </defs>
+</svg>

@@ -1,0 +1,67 @@
+// ------------- MEDIA QUERIES ------------- //
+
+//@media (max-width:$x-large-media-query-size) 
+$x-large-media-query-size: 1600px;	 
+
+//@media (max-width:$large-media-query-size) 
+$large-media-query-size: 1280px;		
+
+//@media (max-width:$medium-media-query-size) 
+$medium-media-query-size: 1025px;
+
+//@media (max-width:$small-media-query-size) 
+$small-media-query-size: 640px;	
+
+//@media (max-width:$mobile-media-query-size) 
+$mobile-media-query-size: 340px; 
+
+
+// ------------- BREAKPOINTS MAP ------------- //
+
+$breakpoints: ( 
+    large : $large-media-query-size, 
+    medium: $medium-media-query-size, 
+    small : $small-media-query-size,
+    mobile : $mobile-media-query-size 
+);
+
+
+// ------------- COLORS ------------- //
+
+$primary-color:				#000;
+
+
+// ------------- FONTS ------------- //
+
+$sans-serif-font:		'LoremIpsum';
+$serif-font:			'LoremIpsum';
+
+
+// ------------- FONT WEIGHTS ------------- //
+
+$font-weight-normal:		400;
+$font-weight-bold:			700;
+
+
+// ------------- WHITESPACE/WIDTH ------------- //
+
+$column-gutter:				30px;
+$max-width:                 1600px;
+
+
+// ------------- Z-INDEX MAP ------------- //
+
+$zindex: (
+  z-index-0     : -1, 
+  z-index-1     : 10, 
+  z-index-2		: 20,
+  z-index-3		: 30,
+  z-index-4		: 40,
+  z-index-5		: 50,
+  z-index-6		: 60,
+  z-index-7		: 70,
+  z-index-8		: 80,
+  z-index-9		: 90
+);
+
+/* z-index: map-get($zindex, z-index-#); */

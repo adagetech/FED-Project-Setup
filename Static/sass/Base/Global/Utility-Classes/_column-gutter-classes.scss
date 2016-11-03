@@ -1,0 +1,21 @@
+// ------------- COLUMN GUTTER CLASSES ------------- //
+
+/* Top Gutter */
+.col-gutter-top {
+    padding-top: $column-gutter;
+}
+
+/* Buttom Gutter */
+.col-gutter-bottom {
+    padding-bottom: $column-gutter;
+}
+
+/* Right Gutter */
+.col-gutter-right {
+    margin-right: $column-gutter;
+}
+
+/* Left Gutter */
+.col-gutter-left {
+    margin-right: $column-gutter;
+}

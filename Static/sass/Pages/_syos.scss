@@ -1,0 +1,329 @@
+* {
+    pointer-events: fill;
+}
+
+// ------------- SYOS SPECIFIC VARIABLES ------------- //
+
+$zoom-container-width: 100px;
+$popup-view-close-width: 20px;
+$change-level-height: 33px;
+$level-selection-img-ratio: 74.698795%;
+
+
+// ------------- LEVEL SELECTION SCREEN ------------- // 
+
+#syosOnPage {
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    position: relative;
+    //Force height based off 830px by 620px ratio; but allow content to expand if necessary
+    &:before {
+        content: "";
+        padding-bottom: $level-selection-img-ratio;
+        display: inline-block;
+    }
+    //Move direct child to be flush with pseudo-element
+    > div {
+        display: inline-block;
+        vertical-align: top;
+        width: 100%;
+        margin-left: -4px;
+        overflow: hidden;
+    }
+}
+
+//Set stacking context of level selection screen to be above seat selection elements
+.syos-choose-level {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background-color: #fff;
+    z-index: 20;
+}
+
+//Inner container of the level selection screen
+.syos-choose-level-inner {
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    position: relative;
+    //Force height based off 830px by 620px ratio; but allow content to expand if necessary
+    &:before {
+        content: "";
+        padding-bottom: $level-selection-img-ratio;
+        display: inline-block;
+    }
+    //Move direct child to be flush with pseudo-element
+    > div {
+        display: inline-block;
+        vertical-align: top;
+        width: 100%;
+        margin-left: -4px;
+    }
+    //Level selection images - stack on top of each other and display below all other elements
+    img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+}
+
+//Initially hide level summary; will be shown after first hover of SVG path
+.syos-level-summary {
+    display: none;
+    position: relative;
+    z-index: 10;
+}
+
+//Hide level information text; "active" class toggled on hover of respective SVG path
+.level-display-text {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    @include transition(.2s);
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+//SVG of level selection - contains links of shapes that map to level selection images
+.syos-house-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+
+    rect,
+    path {
+        cursor: pointer;
+    }
+}
+
+//Initially hide all elements unrelated to level selection
+.syos-level-slider,
+[data-bb-event=toggle-fullscreen],
+.syos-toggle-view,
+#move,
+.syos-embedded-zoom-wrap {
+    display: none;
+}
+
+//Override inline styles
+.syos-status-view {
+    display: none !important;
+}
+
+//Set stacking context of seat selection related elements below level selection screen
+.syos-level-view-container-outer,
+.syos-cart-wrapper,
+.syos-legend {
+    z-index: 1;
+    position: relative;
+}
+
+// ------------- SELECT SEAT SCREEN ------------- //
+
+.syos-canvas {
+    height: auto !important;
+}
+
+#syosOnPage {
+    max-width: none !important;
+}
+
+.syos-loading {
+    position: absolute;
+    z-index: 20;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    text-align: center;
+
+    span {
+        display: block;
+    }
+}
+
+.syos-circle-map {
+    position: relative;
+    padding-bottom: $level-selection-img-ratio;
+}
+
+canvas {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    -webkit-tap-highlight-color: transparent;
+    cursor: move;
+}
+
+.syos-wrap {
+    position: relative;
+}
+
+.syos-seat-tooltip-view {
+    position: absolute;
+    z-index: 50;
+    width: 250px;
+}
+
+.syos-change-level {
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+    height: $change-level-height;
+
+    .syos-change-level-inner {
+        display: flex;
+
+        h4 {
+            flex-grow: 1;
+        }
+    }
+}
+
+#zoom {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    font-size: 2em;
+    z-index: 10;
+    width: $zoom-container-width;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+
+    span {
+        cursor: pointer;
+    }
+}
+
+.syos-legend {
+    position: absolute;
+    right: $zoom-container-width;
+    bottom: 0;
+
+    li span {
+        border-radius: 50%;
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+    }
+
+    .syos-legend-Wheelchair img,
+    .syos-legend-CompanionSeat img {
+        width: 10px;
+    }
+}
+
+.syos-cart-wrapper {
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+
+    .syos-button {
+        cursor: pointer;
+    }
+}
+
+.syos-cart-body {
+    .syos-cart-remove {
+        cursor: pointer;
+    }
+}
+
+.syos-seat-popup-view {
+    position: absolute;
+    padding-right: $popup-view-close-width;
+    z-index: 100;
+
+    .syos-popup-close {
+        position: absolute;
+        top: $popup-view-close-width / 2;
+        right: $popup-view-close-width / 2;
+        cursor: pointer;
+        text-align: right;
+        width: $popup-view-close-width;
+    }
+
+    .syos-popup-addToCart {
+        cursor: pointer;
+    }
+
+    .syos-popup-seatType img {
+        width: 20px;
+    }
+}
+
+.syos-toggle-view {
+    position: absolute;
+    z-index: 10;
+    top: $change-level-height;
+    right: 0;
+
+    img {
+        display: none;
+    }
+}
+
+.syos-seat-view-icon {
+    position: absolute;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.syos-modal {
+    position: absolute;
+    z-index: 20;
+
+    .syos-modal-header {
+        clear: both;
+    }
+
+    .syos-button {
+        float: right;
+        cursor: pointer;
+    }
+
+    .syos-modal-content {
+        img {
+            width: 100%;
+        }
+    }
+}
+
+.syos-reserve-dialog-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background-color: rgba(255,255,255,.6);
+
+    .syos-reserve-dialog {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+    }
+}
+
+
+// ------------- LEVEL SELECTION SKIN ------------- //
+
+
+
+// ------------- SELECT SEAT SCREEN ------------- //
+

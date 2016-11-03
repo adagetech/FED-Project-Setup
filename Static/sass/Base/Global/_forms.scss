@@ -1,0 +1,38 @@
+// ------------- GLOBAL FORM ELEMENT STYLES ------------- //
+
+textarea {
+    resize: none;
+    border: 0;
+}
+
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=tel] {
+    border: 0;
+
+    &::-webkit-input-placeholder {
+
+    }
+
+    &::-moz-placeholder {
+
+    }
+
+    &:-ms-input-placeholder {
+
+    }
+}
+
+select {
+
+}
+
+label {
+
+}
+
+fieldset {
+
+}
+

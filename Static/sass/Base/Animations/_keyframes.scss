@@ -1,0 +1,38 @@
+// ------------- KEYFRAME ANIMATIONS ------------- //
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Slide In Element */
+@keyframes slideIn {
+    from { 
+        transform: translateY(-120%);   
+    } 
+    to { 
+        transform: translateY(0);
+    }
+}
+
+/* Fade In */
+@keyframes fade-in {
+    0% { 
+        opacity: 0; }
+
+    50% {
+        opacity: 0; }
+
+    100% {
+        opacity: 1; } }
+		
+/* Fade Out - hide on finish */		
+@keyframes fade-out { 
+    0% { 
+        opacity: 1;
+		z-index: 100000; }
+
+    100% {
+        opacity: 0;
+		visibility: hidden;
+		display: none; 
+		z-index: 100; } }

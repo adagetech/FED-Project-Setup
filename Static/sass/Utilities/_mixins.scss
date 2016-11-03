@@ -1,0 +1,588 @@
+/// Equal width columns; any number of children
+/// @access public
+/// @name flexbox-equal-col
+/// @param {value} $padding [$column-gutter] - Column gutter between columns
+/// @param {string} $whitespace ["margin"] - Type of whitespace between columns (margin or padding)
+/// @param {string} $element ["div"] - Direct children element type
+/// @param {value} $breakpoint-medium [$medium-media-query-size] - Media query value at which whitespace is halved
+/// @param {value} $column-breakpoint [0] - Media query value at which columns should stack
+/// @param {value} $column-padding [$padding / 2] - Vertical padding between stacked columns
+/// @param {boolean} $reverse [false] - Reverse the order of the columns when stacked
+/// @example
+///   @include flexbox-equal-col($padding: $column-gutter-small, $element: "span", $column-breakpoint: $tablet-media-query-size);
+/// @group Flexbox
+
+@mixin flexbox-equal-col($padding: $column-gutter, $whitespace: margin, $element: "div", $breakpoint-medium: $medium-media-query-size, $column-breakpoint: 0, $column-padding: $padding / 2, $reverse: false) {
+    display: flex;
+
+    > #{$element} {
+        flex-basis: 0;
+        flex-grow: 1;
+        #{$whitespace}-left: (1/2) * $padding;
+        #{$whitespace}-right: (1/2) * $padding;
+
+        @media (max-width:$breakpoint-medium) {
+            #{$whitespace}-left: (1/4) * $padding;
+            #{$whitespace}-right: (1/4) * $padding;
+        }
+
+        &:first-child {
+            #{$whitespace}-left: 0;
+        }
+
+        &:last-child {
+            #{$whitespace}-right: 0;
+        }
+    }
+
+    @if ($column-breakpoint > 0) {
+        @media (max-width:$column-breakpoint) {
+            @if ($reverse == false) {
+                flex-direction: column;
+            }
+
+            @if ($reverse == true) {
+                flex-direction: column-reverse;
+            }
+
+            > #{$element} {
+                flex-basis: auto;
+                #{$whitespace}-left: 0;
+                #{$whitespace}-right: 0;
+
+                + #{$element} {
+                    @if ($reverse == false) {
+                        #{$whitespace}-top: $column-padding;
+                    }
+
+                    @if ($reverse == true) {
+                        #{$whitespace}-bottom: $column-padding;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+/// Fixed width column on either left or right side; other column expands to fill remaining space
+/// @access public
+/// @name flexbox-two-col-fixed
+/// @param {string} $fixed-col - Either "left" or "right" to indicate which column is fixed width
+/// @param {value} $fixed-col-width - Fixed (non-percentage) pixel width of fixed width column
+/// @param {value} $padding [$column-gutter] - Column gutter between columns
+/// @param {string} $whitespace ["margin"] - Type of whitespace between columns (margin or padding)
+/// @param {string} $element ["div"] - Direct children element type
+/// @param {value} $breakpoint-medium [$medium-media-query-size] - Media query value at which whitespace is halved
+/// @param {value} $column-breakpoint [0] - Media query value at which columns should stack
+/// @param {value} $column-padding [$padding / 2] - Vertical padding between stacked columns
+/// @param {boolean} $reverse [false] - Reverse the order of the columns when stacked
+/// @example
+///   @include flexbox-two-col-fixed($fixed-col: "left", $fixed-col-width: 220px);
+/// @group Flexbox
+@mixin flexbox-two-col-fixed($fixed-col, $fixed-col-width, $padding: $column-gutter, $whitespace: margin, $element: "div", $breakpoint-medium: $medium-media-query-size, $column-breakpoint: 0, $column-padding: $padding / 2, $reverse: false) {
+    display: flex;
+
+    > #{$element} {
+
+        &:first-child {
+            @if $fixed-col == left {
+                flex-basis: $fixed-col-width;
+                flex-grow: 0;
+            }
+
+            @if $fixed-col == right {
+                flex-grow: 1;
+                flex-basis: 0;
+            }
+
+            #{$whitespace}-left: 0;
+            #{$whitespace}-right: $padding / 2;
+
+            @media (max-width:$breakpoint-medium) {
+                #{$whitespace}-right: (1/4) * $padding;
+            }
+        }
+
+        &:last-child {
+            @if $fixed-col == left {
+                flex-grow: 1;
+                flex-basis: 0;
+            }
+
+            @if $fixed-col == right {
+                flex-basis: $fixed-col-width;
+                flex-grow: 0;
+            }
+
+            #{$whitespace}-right: 0;
+            #{$whitespace}-left: $padding / 2;
+
+            @media (max-width:$breakpoint-medium) {
+                #{$whitespace}-left: (1/4) * $padding;
+            }
+        }
+    }
+
+    @if ($column-breakpoint > 0) {
+        @media (max-width:$column-breakpoint) {
+            @if ($reverse == false) {
+                flex-direction: column;
+            }
+
+            @if ($reverse == true) {
+                flex-direction: column-reverse;
+            }
+
+            > #{$element} {
+                &:first-child {
+                    @if ($reverse == true) {
+                        #{$whitespace}-top: $column-padding;
+                    }
+
+                    flex-basis: auto;
+                    #{$whitespace}-right: 0;
+                }
+
+                &:last-child {
+                    @if ($reverse == false) {
+                        #{$whitespace}-top: $column-padding;
+                    }
+
+                    flex-basis: auto;
+                    #{$whitespace}-left: 0;
+                }
+            }
+        }
+    }
+}
+
+
+/// Content-based width on either left or right side; other column expands to fill remaining space
+/// @access public
+/// @name flexbox-two-col-flexible
+/// @param {string} $fixed-col - Either "left" or "right" to indicate which column is fixed width 
+/// @param {value} $padding [$column-gutter] - Column gutter between columns
+/// @param {string} $whitespace ["margin"] - Type of whitespace between columns (margin or padding)
+/// @param {string} $element ["div"] - Direct children element type
+/// @param {value} $breakpoint-medium [$medium-media-query-size] - Media query value at which whitespace is halved
+/// @param {value} $column-breakpoint [0] - Media query value at which columns should stack
+/// @param {value} $column-padding [$padding / 2] - Vertical padding between stacked columns
+/// @param {boolean} $reverse [false] - Reverse the order of the columns when stacked
+/// @example
+///   @include flexbox-two-col-flexible($fixed-col: "left", $column-breakpoint: $small-media-query-size, $reverse: "true");
+/// @group Flexbox
+@mixin flexbox-two-col-flexible($fixed-col, $padding: $column-gutter, $whitespace: margin, $element: "div", $breakpoint-medium: $medium-media-query-size, $column-breakpoint: 0, $column-padding: $padding / 2, $reverse: false) {
+    display: flex;
+
+    > #{$element} {
+
+        &:first-child {
+            @if $fixed-col == left {
+                #{$whitespace}-right: $padding;
+
+                @media (max-width:$breakpoint-medium) {
+                    #{$whitespace}-right: $padding / 2;
+                }
+            }
+
+            @if $fixed-col == right {
+                flex-grow: 1;
+                flex-basis: 0;
+            }
+        }
+
+        &:last-child {
+            @if $fixed-col == left {
+                flex-grow: 1;
+                flex-basis: 0;
+            }
+
+            @if $fixed-col == right {
+                #{$whitespace}-left: $padding;
+
+                @media (max-width:$breakpoint-medium) {
+                    #{$whitespace}-left: $padding / 2;
+                }
+            }
+        }
+    }
+
+    @if ($column-breakpoint > 0) {
+        @media (max-width:$column-breakpoint) {
+            @if ($reverse == false) {
+                flex-direction: column;
+            }
+
+            @if ($reverse == true) {
+                flex-direction: column-reverse;
+            }
+
+            > #{$element} {
+                &:first-child {
+                    @if ($reverse == true) {
+                        #{$whitespace}-top: $column-padding;
+                    }
+
+                    @if $fixed-col == left {
+                        #{$whitespace}-right: 0;
+                    }
+
+                    flex-basis: auto;
+                }
+
+                &:last-child {
+                    @if ($reverse == false) {
+                        #{$whitespace}-top: $column-padding;
+                    }
+
+                    @if $fixed-col == right {
+                        #{$whitespace}-left: 0;
+                    }
+
+                    flex-basis: auto;
+                }
+            }
+        }
+    }
+}
+
+
+/// Two columns; both fluid percentage-based width
+/// @access public
+/// @name flexbox-two-col-fluid
+/// @param {percentage} $first-col-width - Percentage width of first (left) column
+/// @param {value} $padding [$column-gutter] - Column gutter between columns
+/// @param {string} $whitespace ["margin"] - Type of whitespace between columns (margin or padding)
+/// @param {string} $element ["div"] - Direct children element type
+/// @param {value} $breakpoint-medium [$medium-media-query-size] - Media query value at which whitespace is halved
+/// @param {value} $column-breakpoint [0] - Media query value at which columns should stack
+/// @param {value} $column-padding [$padding / 2] - Vertical padding between stacked columns
+/// @param {boolean} $reverse [false] - Reverse the order of the columns when stacked
+/// @example
+///   @include flexbox-two-col-fluid($first-col-width: "30%", $element: "*");
+/// @group Flexbox
+@mixin flexbox-two-col-fluid($first-col-width, $padding: $column-gutter, $whitespace: margin, $element: "div", $breakpoint-medium: $medium-media-query-size, $column-breakpoint: 0, $column-padding: $padding / 2, $reverse: false) {
+    display: flex;
+
+    > #{$element} {
+
+        &:first-child {
+            flex-basis: $first-col-width;
+            #{$whitespace}-left: 0;
+            #{$whitespace}-right: $padding / 2;
+
+            @media (max-width:$breakpoint-medium) {
+                #{$whitespace}-right: (1/4) * $padding;
+            }
+        }
+
+        &:last-child {
+            flex-basis: (100% - $first-col-width);
+            #{$whitespace}-right: 0;
+            #{$whitespace}-left: $padding / 2;
+
+            @media (max-width:$breakpoint-medium) {
+                #{$whitespace}-left: (1/4) * $padding;
+            }
+        }
+    }
+
+    @if ($column-breakpoint > 0) {
+        @media (max-width:$column-breakpoint) {
+            @if ($reverse == false) {
+                flex-direction: column;
+            }
+
+            @if ($reverse == true) {
+                flex-direction: column-reverse;
+            }
+
+            > #{$element} {
+                &:first-child {
+                    @if ($reverse == true) {
+                        #{$whitespace}-top: $column-padding;
+                    }
+
+                    flex-basis: auto;
+                    #{$whitespace}-right: 0;
+                }
+
+                &:last-child {
+                    @if ($reverse == false) {
+                        #{$whitespace}-top: $column-padding;
+                    }
+
+                    flex-basis: auto;
+                    #{$whitespace}-left: 0;
+                }
+            }
+        }
+    }
+}
+
+
+/// Flexbox grid: wraps after certain number of children; each child is the same width.
+/// Use with whitespace for 2 or 3 columns
+/// @access public
+/// @name flexbox-grid
+/// @param {value} $flex-basis [0] - Width of each child; only required if $col-num is not specified
+/// @param {string} $col-num ["auto"] - Number of columns; only required if padding between elements is needed
+/// @param {value} $padding [0] - Column gutter between items
+/// @param {string} $element ["div"] - Direct children element type
+/// @param {string} $whitespace ["padding"] - Type of whitespace between items
+/// @example
+///   @include flexbox-grid($col-num: 3, $padding: $column-gutter-mini);
+/// @example
+///   @include flexbox-grid($flex-basis: 50%);
+/// @group Flexbox
+/// @todo Responsive options
+
+@mixin flexbox-grid($flex-basis: 0, $col-num: auto, $padding: 0, $element: "div", $whitespace: padding) {
+    display: flex;
+    flex-flow: row wrap;
+
+    > #{$element} {
+
+        @if ($col-num == "auto") {
+            flex-basis: $flex-basis;
+        }
+
+        @if ($padding != 0) {
+            #{$whitespace}-bottom: $padding;
+            flex-basis: 100% / $col-num;
+
+            @if ($col-num == 2) {
+
+                &:nth-child(odd) {
+                    #{$whitespace}-right: $padding / 2;
+                }
+
+                &:nth-child(even) {
+                    #{$whitespace}-left: $padding / 2;
+                }
+            }
+
+            @if ($col-num == 3) {
+                #{$whitespace}-right: $padding * (1/3);
+                #{$whitespace}-left: $padding * (1/3);
+
+                &:nth-child(#{$col-num}n + 1) {
+                    #{$whitespace}-right: $padding * (2/3);
+                    padding-left: 0;
+                }
+
+                &:nth-child(#{$col-num}n) {
+                    #{$whitespace}-left: $padding * (2/3);
+                    padding-right: 0;
+                }
+            }
+        }
+    }
+}
+
+
+/// Equal height rows; any number of rows
+/// @access public
+/// @name flexbox-equal-row
+/// @param {value} $padding [$column-gutter] - Column gutter between columns
+/// @param {string} $whitespace ["margin"] - Type of whitespace between columns (margin or padding)
+/// @param {string} $element ["div"] - Direct children element type
+/// @param {value} $breakpoint-medium [$medium-media-query-size] - Media query value at which whitespace is halved
+/// @example
+///   @include flexbox-equal-row($element: "a");
+/// @group Flexbox
+
+@mixin flexbox-equal-row($padding: $column-gutter, $whitespace: margin, $element: "div", $breakpoint-medium: $medium-media-query-size) {
+    display: flex;
+    flex-direction: column;
+
+    > #{$element}:not(:only-child) {
+        flex-grow: 1;
+        flex-basis: 0;
+
+        + * {
+            #{$whitespace}-top: $padding;
+
+            @media (max-width:$breakpoint-medium) {
+                #{$whitespace}-top: (1/2) * $padding;
+            }
+        }
+    }
+}
+
+
+/// CSS transitions
+/// @access public
+/// @name transition
+/// @param {duration} $time - Duration of transition
+/// @param {string} $property ["all"] - CSS property to which transition effect should be applied
+/// @param {string} $timing ["ease-in"] - Timing function of transition
+/// @param {duration} $delay [0] - Duration of delay of transition
+/// @example
+///   @include transition($time: .2s, $property: "opacity, background-color", $timing: "linear");
+/// @group Miscellaneous
+
+@mixin transition($time, $property: all, $timing: ease-in, $delay: 0) {
+    @if ($delay != 0) {
+        transition: $property $time $timing $delay;
+    }
+    @else {
+        transition: $property $time $timing;
+    }
+}
+
+
+/// CSS animations
+/// @access public
+/// @name animation
+/// @param {string} $name - Name of keyframe animation
+/// @param {numeral} $iteration [1] - Number of times an animation should run
+/// @param {string} $timing ["cubic-bezier(0.22, 0.44, 0, 1)"] - Timing function of transition
+/// @param {duration} $duration [1s] - Duration of animation
+/// @param {string} $fill-mode ["none"] - Fill mode of animation
+/// @param {duration} $delay [0] - Duration of delay of animation
+/// @example
+///   @include animation($name: "fade-in", $iteration: infinite, $fill-mode: "forwards");
+/// @group Miscellaneous
+
+@mixin animation($name, $iteration: 1, $timing: cubic-bezier(0.22, 0.44, 0, 1), $duration: 1s, $fill-mode: none, $delay: 0) {
+    animation-name: $name;
+    animation-iteration-count: $iteration;
+    animation-timing-function: $timing;
+    animation-duration: $duration;
+
+    @if ($fill-mode != "none") {
+        animation-fill-mode: $fill-mode;
+    }
+
+    @if ($delay != 0) {
+        animation-delay: $delay;
+    }
+}
+
+
+/// Inline breakpoints
+/// @access public
+/// @name media
+/// @content true
+/// @param {string | value} $breakpoint - Value of breakpoint; accepts string values defined in breakpoints map
+/// @example
+/// header {
+///   @include media(small) {
+///        height: auto;
+///   }
+/// }
+/// @group Miscellaneous
+@mixin media($breakpoint, $breakpoints-map: $breakpoints) {
+
+    @if map-has-key($breakpoints-map, $breakpoint) {
+        $breakpoint: map-get($breakpoints-map, $breakpoint);
+
+        @media (max-width: $breakpoint) {
+            @content;
+        }
+    }
+
+    @else {
+        @media (max-width:$breakpoint) {
+            @content;
+        }
+    }
+}
+
+@mixin media-min($breakpoint, $breakpoints-map: $breakpoints) {
+
+    @if map-has-key($breakpoints-map, $breakpoint) {
+        $breakpoint: map-get($breakpoints-map, $breakpoint);
+
+        @media (min-width: $breakpoint) {
+            @content;
+        }
+    }
+
+    @else {
+        @media (min-width:$breakpoint) {
+            @content;
+        }
+    }
+}
+
+@mixin media-range($breakpoint-min, $breakpoint-max, $breakpoints-map: $breakpoints) {
+
+    @if map-has-key($breakpoints-map, $breakpoint-min) {
+        $breakpoint-min: map-get($breakpoints-map, $breakpoint-min);
+        $breakpoint-max: map-get($breakpoints-map, $breakpoint-max);
+
+        @media (min-width: $breakpoint-min) and (max-width: $breakpoint-max) {
+            @content;
+        }
+    }
+
+    @else {
+        @media (min-width: $breakpoint-min) and (max-width: $breakpoint-max) {
+            @content;
+        }
+    }
+}
+
+/// Ellipsis multiple line element
+/// @access public
+/// @name multiline-ellipsis
+/// @param {numberal} $number - Number of lines to show before ellipsis
+/// @group Miscellaneous
+
+@mixin multiline-ellipsis($number) {
+    display: -webkit-box;
+    -webkit-line-clamp: $number;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+}
+
+
+/// Clear floated elements
+/// @access public
+/// @name float-clear
+/// @group Miscellaneous
+@mixin float-clear {
+    &:before {
+        content: " ";
+        display: table;
+    }
+
+    &:after {
+        content: " ";
+        display: table;
+        clear: both;
+    }
+}
+
+
+/// Override styles specifically for EPiServer edit mode 
+/// @access public
+/// @name epimode
+/// @content true
+/// @example
+///   @include epimode {
+///   	header {
+///        height: 800px;
+///     }
+///   }
+/// @group Miscellaneous
+
+@mixin epimode {
+    .epi-editmode { 
+        @content;
+    }
+}
+
+/// Loader Mixin
+@mixin loader($border-size: 10px, $main-color: red, $accent-color: black, $size: 120px) {
+    border: $border-size solid $main-color;
+    border-top: $border-size solid $accent-color;
+    border-radius: 50%;
+    width: $size;
+    height: $size;
+    animation: spin 2s linear infinite;
+}

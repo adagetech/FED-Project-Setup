@@ -1,0 +1,35 @@
+// ------------- RICH TEXT STYLES ------------- //
+
+.rich-text {
+
+    a {
+        
+    }
+
+    ol {
+        list-style-type: decimal;
+    }
+
+    ul {
+        list-style-type: disc;
+    }
+
+    ol, ul {
+        margin: 0 0 $column-gutter $column-gutter;
+        padding-left: 4px;
+
+        li {
+            + li {
+                padding-top: 10px;
+            }
+        }
+    }
+
+    p {
+        margin-bottom: $column-gutter;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+}

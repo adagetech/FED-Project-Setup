@@ -1,0 +1,53 @@
+﻿@import
+
+// ------------- UTILITIES ------------- //
+"Utilities/_vars.scss",
+"Utilities/_mixins.scss",
+
+// ------------- BASE ------------- //
+
+/* Reset */
+"Base/Reset/_reset.scss", //Standard HTML5 browser reset
+
+/* Animations */
+"Base/Animations/_keyframes.scss",  //Keyframe animations
+
+/* Responsive Framework */
+"Base/Framework/_foundation.scss", //Slightly customized Foundation grid (version 5.4.7) GRID ONLY!
+
+/* Typography */
+"Base/Typography/_fonts.scss", //Font face declarations
+"Base/Typography/_responsive-typography.scss", //Responsive font sizing and line height map settings
+"Base/Typography/_global-typography.scss", //Global typography styles for HTML tags
+"Base/Typography/_rich-text.scss", //Rich text editor (WYSIWYG) specific styles --- define dropdown styles in stylesheets/epi.css
+"Base/Typography/_typography-classes.scss", //Typography styles meant to be @extend-ed and utility classes
+
+/* Global Styles */
+"Base/Global/_screen.scss", //General global miscallenous styles
+"Base/Global/_forms.scss", //Global form fields styling
+//Global Classes
+"Base/Global/Utility-Classes/_button-classes.scss",
+"Base/Global/Utility-Classes/_column-gutter-classes.scss", //Classes for column gutter/whitespace
+
+/* Master Page Structural Styles */
+"Base/Structure/_footer.scss",
+"Base/Structure/_header.scss",
+//Navigation
+"Base/Structure/Navigation/_main-navigation.scss", 
+"Base/Structure/Navigation/_mobile-navigation.scss", 
+
+
+// ------------- FEATURE DETECTION ------------- //
+
+"FeatureDetection/touch", //Global touch specific styles
+
+
+// ------------- PAGES ------------- //
+
+
+// ------------- COMPONENTS ------------- //
+"Components/_general-modal.scss",
+"Components/_owl-carousel-general.scss";
+
+// DON'T FORGET TO MOVE THE SEMICOLON ONCE PAGES/COMPONENTS ARE ADDED
+
