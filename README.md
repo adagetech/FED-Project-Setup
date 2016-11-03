@@ -43,6 +43,4 @@ How to Use
                                                                            
 Extras
 ======
-1. A basic custom modernizr build, an example SVG sprite, and a properly scoped global.js with AJAX-ing for the sprite are included as well.                                                                           
-                                                                           
-"# FED-Project-Setup" 
+1. A basic custom modernizr build, an example SVG sprite, and a properly scoped global.js with AJAX-ing for the sprite are included as well.                                                                                                                                                     
