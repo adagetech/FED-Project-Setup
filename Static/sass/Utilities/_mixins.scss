@@ -496,13 +496,13 @@
     @if map-has-key($breakpoints-map, $breakpoint) {
         $breakpoint: map-get($breakpoints-map, $breakpoint);
 
-        @media (min-width: $breakpoint) {
+        @media (min-width: $breakpoint + 1px) {
             @content;
         }
     }
 
     @else {
-        @media (min-width:$breakpoint) {
+        @media (min-width:$breakpoint + 1px) {
             @content;
         }
     }
@@ -514,13 +514,13 @@
         $breakpoint-min: map-get($breakpoints-map, $breakpoint-min);
         $breakpoint-max: map-get($breakpoints-map, $breakpoint-max);
 
-        @media (min-width: $breakpoint-min) and (max-width: $breakpoint-max) {
+        @media (min-width: $breakpoint-min + 1px) and (max-width: $breakpoint-max) {
             @content;
         }
     }
 
     @else {
-        @media (min-width: $breakpoint-min) and (max-width: $breakpoint-max) {
+        @media (min-width: $breakpoint-min + 1px) and (max-width: $breakpoint-max) {
             @content;
         }
     }
